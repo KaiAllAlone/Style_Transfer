@@ -149,7 +149,7 @@ def run_style_transfer(cnn, normalization_mean, normalization_std,
 
 # -------------------- Main --------------------
 def main(style_img_path, content_img_path, output_dir='outputs',
-         imsize=512,num_steps=200,style_weight=1e5,content_weight=1):
+         imsize=512,num_steps=15,style_weight=1e5,content_weight=1):
     
     os.makedirs(output_dir, exist_ok=True)
 
@@ -188,6 +188,6 @@ def main(style_img_path, content_img_path, output_dir='outputs',
 
 # -------------------- Run Example --------------------
 if __name__ == "__main__":
-    style_img_path = r"Style_Transfer\Aarohan2k25\8-bit.jpg"
+    style_img_path = r"Style_Transfer\Aarohan2k25\cubism.jpg"
     content_img_path = r"Style_Transfer\Aarohan2k25\buildings.png"
     main(style_img_path,content_img_path,imsize=512)
