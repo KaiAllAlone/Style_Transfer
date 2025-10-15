@@ -8,7 +8,7 @@ from tqdm import trange
 # Parameters (adjustable)
 # -----------------------------
 IMAGE_SIZE = 500
-ITERATIONS = 20
+ITERATIONS = 15
 CONTENT_WEIGHT = 0.02
 STYLE_WEIGHT = 15.0
 TOTAL_VARIATION_WEIGHT = 1.0
