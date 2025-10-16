@@ -14,7 +14,7 @@ import cv2
 # =====================================================
 # Configuration
 # =====================================================
-STYLE_PATH = r"Style_Transfer\Aarohan2k25\god.jpg"
+STYLE_PATH = r"Style_Transfer\Aarohan2k25\starry_night.jpg"
 MAX_DIM = 256  # Keep small for real-time speed
 USE_MIXED_PRECISION = True  # Set False if GPU doesn't support
 

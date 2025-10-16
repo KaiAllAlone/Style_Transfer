@@ -7,18 +7,19 @@ from tqdm import trange
 import numpy as np
 import os
 import cv2 as cv
+import matplotlib.pyplot as plt
 # -----------------------------
 # Settings (tweakable)
 # -----------------------------
 IMAGE_SIZE = 500
 ITERATIONS = 200
 CONTENT_WEIGHT = 1.0
-STYLE_WEIGHT = 1e5      # tuned for current gram normalization
-TOTAL_VARIATION_WEIGHT = 1e-6
+STYLE_WEIGHT = 1e8      # tuned for current gram normalization
+TOTAL_VARIATION_WEIGHT = 1e-8
 START_FROM_CONTENT = True
 
-CONTENT_IMAGE_PATH = r"Style_Transfer\Aarohan2k25\buildings.png"
-STYLE_IMAGE_PATH   = r"Style_Transfer\Aarohan2k25\starry_night.jpg"
+CONTENT_IMAGE_PATH = r"Style_Transfer\Aarohan2k25\sail.jpg"
+STYLE_IMAGE_PATH   = r"Style_Transfer\Aarohan2k25\great_waves.jpg"
 OUTPUT_PATH = "output.png"
 COMBINED_PATH = "combined.png"
 INTERMEDIATE_DIR = "intermediates"
@@ -155,16 +156,33 @@ for i in trange(ITERATIONS, desc="Style Transfer"):
         combination.clamp_(0.0, 1.0)
 
     # save intermediate images occasionally so you can inspect progress
-    if (i % 50 == 0) or (i == ITERATIONS-1):
+    if (i == ITERATIONS-1):
         inter_path = os.path.join(INTERMEDIATE_DIR, f"iter_{i+1:04d}.png")
         save_image(combination, inter_path)
         print(f"[iter {i+1:03d}] loss={loss.item():.2f} -> saved {inter_path}")
 
+def imshow(tensor, title=None):
+    image = tensor.cpu().clone().squeeze(0)
+    unloader = transforms.ToPILImage()
+    image = unloader(image)
+    plt.imshow(image)
+    if title:
+        plt.title(title)
+    plt.axis('off')
 # -----------------------------
 # Save final images
 # -----------------------------
 save_image(combination, OUTPUT_PATH)
 make_combined(content, style, combination, COMBINED_PATH)
+plt.figure(figsize=(12,4))
+plt.subplot(1,3,1)
+imshow(content,title='Content Image')
+plt.subplot(1,3,2)
+imshow(style, title='Style Image')
+plt.subplot(1,3,3)
+imshow(combination, title='Output Image')
+plt.show()
+
 cv.imshow("Output", cv.imread(OUTPUT_PATH))
 cv.waitKey(0)
 print("Finished. Output saved to:", OUTPUT_PATH, COMBINED_PATH)
