@@ -18,8 +18,8 @@ STYLE_WEIGHT = 1e8      # tuned for current gram normalization
 TOTAL_VARIATION_WEIGHT = 1e-8
 START_FROM_CONTENT = True
 
-CONTENT_IMAGE_PATH = r"Style_Transfer\Aarohan2k25\sail.jpg"
-STYLE_IMAGE_PATH   = r"Style_Transfer\Aarohan2k25\great_waves.jpg"
+CONTENT_IMAGE_PATH = r"Style_Transfer\Aarohan2k25\cat.jpg"
+STYLE_IMAGE_PATH   = r"Style_Transfer\Aarohan2k25\guernica.jpg"
 OUTPUT_PATH = "output.png"
 COMBINED_PATH = "combined.png"
 INTERMEDIATE_DIR = "intermediates"
