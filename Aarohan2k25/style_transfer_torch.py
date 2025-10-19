@@ -9,11 +9,11 @@ import os
 import cv2 as cv
 import matplotlib.pyplot as plt
 
-
+#hyperparameters
 IMAGE_SIZE = 500
 ITERATIONS = 200
 CONTENT_WEIGHT = 1.0
-STYLE_WEIGHT = 1e8      # tuned for current gram normalization
+STYLE_WEIGHT = 1e8      
 TOTAL_VARIATION_WEIGHT = 1e-8
 START_FROM_CONTENT = True
 
@@ -58,12 +58,11 @@ def gram_matrix(input):
     b, c, h, w = input.size()
     features = input.view(b * c, h * w)   # (C, H*W) when b==1
     G = torch.mm(features, features.t())  # (C, C)
-    # normalize by (C * H * W) - keep consistent with prior code
     return G / (c * h * w)
 
 
 def total_variation_loss(img):
-    # img shape: (1, C, H, W)
+    # img shape==> (1, C, H, W)
     x_diff = img[:, :, :, 1:] - img[:, :, :, :-1]
     y_diff = img[:, :, 1:, :] - img[:, :, :-1, :]
     return torch.sum(torch.abs(x_diff)) + torch.sum(torch.abs(y_diff))
@@ -86,7 +85,7 @@ STYLE_LAYERS = ['0','5','10','19','28']
 CONTENT_LAYER = '21'
 
 def extract_features(x, model, layers):
-    """Return dict of activations for requested layer indices (strings)."""
+    """Return dict of activations for requested layer indices."""
     features = {}
     out = normalize_batch(x)
     for name, layer in model._modules.items():
